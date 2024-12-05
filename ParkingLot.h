@@ -1,40 +1,53 @@
-#ifndef PARKING_LOT_H
-#define PARKING_LOT_H
+#ifndef PARKINGLOT_H
+#define PARKINGLOT_H
 
-#include <iostream>
+#include <vector>
+#include "Car.h"
 using namespace std;
 
-// *********** unfinished
+class ParkingLot {
+private:
+    vector<Car*> cars;  // Dynamically allocated cars
 
-class ParkingLot{
-    private:
-        int totalCars; // total number of cars currently in a parking lot
-        int maxCars; // maximum capacity of cars for a parking lot
+public:
+    ParkingLot() {}
 
-    public:
-        ParkingLot(); // constructor
-
-        ~ParkingLot(); // destructor
-
-        int getTotalCars(){
-            return totalCars;
+    ~ParkingLot() {
+        for (Car* car : cars) {
+            delete car;  // Clean up dynamically allocated cars
         }
+    }
 
-        int getMaxCars(){
-            return maxCars;
-        }
+    void addCar(const string& plate) {
+        cars.push_back(new Car(plate));  // Dynamically allocate cars
+    }
 
-        bool isAtCapacty(){ // checks to see if a parking lot is ful or not
-            if(totalCars == maxCars){
-                return true;
-            }
-
-            else if(totalCars < maxCars){
-                return false;
+    void removeCar(const string& plate) {
+        for (auto it = cars.begin(); it != cars.end(); ++it) {
+            if ((*it)->getLicensePlate() == plate) {
+                delete *it;  // Delete the car
+                cars.erase(it);  // Remove it from the vector
+                return;
             }
         }
 
+        cout << "Car with plate " << plate << " not found.\n";
+    }
 
+    void displayCars() const {
+        if (cars.empty()) {
+            cout << "No cars in the parking lot.\n";
+        } else {
+            for (const auto& car : cars) {
+                cout << *car << endl;
+            }
+        }
+    }
+
+    friend ostream& operator << (ostream& os, const ParkingLot& lot) {
+        os << "Parking Lot [Cars: " << lot.cars.size() << "]";
+        return os;
+    }
 };
 
-#endif
+#endif // PARKINGLOT_H
