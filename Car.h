@@ -18,7 +18,7 @@ public:
         return licensePlate;
     }
 
-    friend ostream& operator<<(ostream& os, const Car& car) {
+    friend std::ostream& operator<<(std::ostream& os, const Car& car) {
         os << "Car [License Plate: " << car.licensePlate << "]";
         return os;
     }

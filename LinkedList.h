@@ -29,7 +29,7 @@ public:
         size = 0;
     }
 
-    void add(SmartPointer<T> item) {
+    void add(SmartPointer<T>& item) {
         Node<T>* newNode = new Node<T>(item);
         if (!head) {
             head = newNode;
@@ -41,6 +41,7 @@ public:
             temp->next = newNode;
         }
         size++;
+        cout << "Item added to LinkedList.\n"; //for debugging
     }
 
     void display() const {
@@ -57,7 +58,7 @@ public:
 
     SmartPointer<T> get(int index) const {
         if (index < 0 || index >= size) {
-            return nullptr;
+            return SmartPointer<T>(nullptr);
         }
 
         Node<T>* temp = head;

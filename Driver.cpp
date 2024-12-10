@@ -7,6 +7,7 @@ Date: 11.5.2024
 
 #include "LinkedList.h"
 #include "ParkingLot.h"
+#include "smartpointer.h"
 #include <iostream>
 using namespace std;
 
@@ -28,6 +29,7 @@ int main(){
         cin >> userMenuOption;
 
         if(userMenuOption == 1){ // create parking lot
+            cout << "Attempting to create a new parking lot..." << endl; //for bug testing
             SmartPointer<ParkingLot> newLot(new ParkingLot());
             parkingLots.add(newLot);
             cout << "Parking lot created.\n";
@@ -51,12 +53,14 @@ int main(){
             int lotIndex;
             string plate;
             
-            cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
-            cin >> lotIndex;
+            do {
+                cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
+                cin >> lotIndex;
 
-            if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
-                cout << "Invalid parking lot index.\n";
-            }
+                if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
+                    cout << "Invalid parking lot index.\n";
+                }
+            } while (lotIndex < 1 || lotIndex > parkingLots.getSize());
 
             cout << "Enter the car's license plate: ";
             cin >> plate;
@@ -79,12 +83,14 @@ int main(){
                     parkingLots.get(i)->displayCars();
                 }
             
-                cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
-                cin >> lotIndex;
-                if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
-                    cout << "Invalid parking lot index.\n";
-                    break;
-                }
+                do {
+                    cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
+                    cin >> lotIndex;
+
+                    if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
+                        cout << "Invalid parking lot index.\n";
+                    }
+                } while (lotIndex < 1 || lotIndex > parkingLots.getSize());
 
                 cout << "Enter the car's license plate to remove: ";
                 cin >> plate;

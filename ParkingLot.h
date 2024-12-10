@@ -12,7 +12,9 @@ private:
     vector<SmartPointer<Car>> cars;  // Dynamically allocated cars
 
 public:
-    ParkingLot() {}
+    ParkingLot() {
+        cout << "Constructor called for Parking Lot" << endl; //for bug testing
+    }
 
     void addCar(const string& plate) {
          cars.push_back(SmartPointer<Car>(new Car(plate)));  // Dynamically allocate cars
