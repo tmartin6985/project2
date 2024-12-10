@@ -7,10 +7,12 @@ private:
     T* ptr;
 
 public:
+    //constructor
     explicit SmartPointer(T* ptr = nullptr) {
         this->ptr = ptr;
     }
 
+    //destructor
     ~SmartPointer() {
         delete ptr;
     }
@@ -21,6 +23,11 @@ public:
 
     T* operator->() {
         return ptr;
+    }
+
+    friend ostream& operator<<(ostream& os, const SmartPointer<T>& smartPtr) {
+        os << *smartPtr.ptr;  // dereferencing the SmartPointer to access the Car object
+        return os;
     }
 };
 

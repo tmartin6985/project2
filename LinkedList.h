@@ -2,15 +2,16 @@
 #define LINKEDLIST_H
 
 #include <iostream>
+#include "smartpointer.h"
 using namespace std;
 
 template <typename T>
 class Node {
 public:
-    T* data;
+    SmartPointer<T> data;
     Node* next;
 
-    Node(T* data) {
+    Node(SmartPointer<T> data) {
         this->data = data;
         this->next = nullptr;
     }
@@ -28,7 +29,7 @@ public:
         size = 0;
     }
 
-    void add(T* item) {
+    void add(SmartPointer<T> item) {
         Node<T>* newNode = new Node<T>(item);
         if (!head) {
             head = newNode;
@@ -54,7 +55,7 @@ public:
         return size;
     }
 
-    T* get(int index) const {
+    SmartPointer<T> get(int index) const {
         if (index < 0 || index >= size) {
             return nullptr;
         }
@@ -74,7 +75,6 @@ public:
         Node<T>* temp = head;
         if (index == 0) {
             head = head->next;
-            delete temp->data;
             delete temp;
             size--;
             return;
@@ -86,7 +86,6 @@ public:
 
         Node<T>* toDelete = temp->next;
         temp->next = toDelete->next;
-        delete toDelete->data;
         delete toDelete;
         size--;
     }
@@ -95,7 +94,6 @@ public:
         Node<T>* temp = head;
         while (temp) {
             Node<T>* next = temp->next;
-            delete temp->data;
             delete temp;
             temp = next;
         }

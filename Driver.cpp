@@ -28,7 +28,7 @@ int main(){
         cin >> userMenuOption;
 
         if(userMenuOption == 1){ // create parking lot
-            ParkingLot* newLot = new ParkingLot();
+            SmartPointer<ParkingLot> newLot(new ParkingLot());
             parkingLots.add(newLot);
             cout << "Parking lot created.\n";
             numParkingLots++;
@@ -40,7 +40,7 @@ int main(){
             } 
             
             else{
-                for(int i = 0; i < parkingLots.getSize(); ++i){
+                for(int i = 0; i < parkingLots.getSize(); i++){
                     cout << "Parking Lot " << i + 1 << ":\n";
                     parkingLots.get(i)->displayCars();
                 }
@@ -94,10 +94,6 @@ int main(){
         
         else if(userMenuOption == 5){
             cout << "Exiting Program...\n";
-
-            for (int i = 0; i < parkingLots.getSize(); ++i) { // this might be broken as the program seg faults when exiting
-                delete parkingLots.get(i);
-            }
         } 
         
         else {
