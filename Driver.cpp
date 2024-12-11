@@ -37,8 +37,8 @@ int main(){
         } 
 
         else if(userMenuOption == 2){ // view cars in parking lot
-            if (parkingLots.getSize() == 0){
-                cout << "No parking lots available.\n";
+            if (parkingLots.getSize() <= 0){
+                cout << "No parking lots available. Create at least one parking lot and one car first.\n";
             } 
             
             else{
@@ -52,27 +52,34 @@ int main(){
         else if(userMenuOption == 3){ // add car to parking lot
             int lotIndex;
             string plate;
-            
-            do {
-                cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
-                cin >> lotIndex;
 
-                if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
-                    cout << "Invalid parking lot index.\n";
-                }
-            } while (lotIndex < 1 || lotIndex > parkingLots.getSize());
 
-            cout << "Enter the car's license plate: ";
-            cin >> plate;
-            parkingLots.get(lotIndex - 1)->addCar(plate);
-            cout << "Car added.\n";
+            if(parkingLots.getSize() <= 0){
+                cout << "No parking lots available. Create at least one parking lot and one car first.\n";
+            }
+
+            else{
+                do {
+                    cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
+                    cin >> lotIndex;
+
+                    if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
+                        cout << "Invalid parking lot index.\n";
+                    }
+                } while (lotIndex < 1 || lotIndex > parkingLots.getSize());
+
+                cout << "Enter the car's license plate: ";
+                cin >> plate;
+                parkingLots.get(lotIndex - 1)->addCar(plate);
+                cout << "Car added.\n";
+            }
         } 
         
         else if(userMenuOption == 4){ // remove car from parking lot
             int lotIndex;
             string plate;
 
-            if (parkingLots.getSize() == 0){
+            if (parkingLots.getSize() <= 0){
                 cout << "No parking lots available. Create at least one parking lot and one car first.\n";
             }
 
