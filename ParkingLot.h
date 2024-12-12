@@ -13,10 +13,10 @@ private:
 
 public:
     ParkingLot();
-    void addCar(const string& plate);
+    void addCar(const string& plate, const string& color, const string& make, const string& model);
     void removeCar(const string& plate);
-    bool displayCars() const;
-
+    void displayCars() const;
+    void sortCars(const string& carAttribute);
     friend ostream& operator << (ostream& os, const ParkingLot& lot) {
         os << "Parking Lot [Cars: " << lot.cars.size() << "]";
         return os;
