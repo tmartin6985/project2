@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "smartpointer.h"
+#include "Car.h"
 using namespace std;
 
 template <typename T>
@@ -33,7 +34,9 @@ public:
         Node<T>* newNode = new Node<T>(item);
         if (!head) {
             head = newNode;
-        } else {
+        } 
+
+        else{
             Node<T>* temp = head;
             while (temp->next) {
                 temp = temp->next;
@@ -56,16 +59,16 @@ public:
         return size;
     }
 
-    SmartPointer<T> get(int index) const {
-        if (index < 0 || index >= size) {
-            return SmartPointer<T>(nullptr);
-        }
+    SmartPointer<T>& get(int index) const {
+    if (index < 0 || index >= size) {
+        throw out_of_range("Invalid index");
+    }
 
-        Node<T>* temp = head;
-        for (int i = 0; i < index; ++i) {
-            temp = temp->next;
-        }
-        return temp->data;
+    Node<T>* temp = head;
+    for (int i = 0; i < index; ++i) {
+        temp = temp->next;
+    }
+    return temp->data;
     }
 
     void remove(int index) {
