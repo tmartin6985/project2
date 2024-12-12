@@ -14,11 +14,14 @@ using namespace std;
 int main(){
     int userMenuOption = 0; 
     int numParkingLots = 0; // might be used in a future print statement
+    int lotIndex;
+    string plate;
     LinkedList<ParkingLot> parkingLots;
 
     cout << "Welcome to the Tennessee Tech Parking Lot Manager\n";
 
     do{
+        cout << "\n****************************************************************\n";
         cout << "\nPick an option:\n";
         cout << "1. Create Parking Lot\n";
         cout << "2. View Cars in Parking Lot\n";
@@ -50,10 +53,6 @@ int main(){
         } 
         
         else if(userMenuOption == 3){ // add car to parking lot
-            int lotIndex;
-            string plate;
-
-
             if(parkingLots.getSize() <= 0){
                 cout << "No parking lots available. Create at least one parking lot and one car first.\n";
             }
@@ -76,34 +75,40 @@ int main(){
         } 
         
         else if(userMenuOption == 4){ // remove car from parking lot
-            int lotIndex;
-            string plate;
-
             if (parkingLots.getSize() <= 0){
                 cout << "No parking lots available. Create at least one parking lot and one car first.\n";
             }
 
             else{
-                cout << "Available parking lots and cars:\n";
+                cout << "Available parking lots: " << parkingLots.getSize() << endl; // Debug
                 for (int i = 0; i < parkingLots.getSize(); ++i) {
                     cout << "Parking Lot " << i + 1 << ":\n";
                     parkingLots.get(i)->displayCars();
                 }
-            
-                do {
-                    cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
-                    cin >> lotIndex;
 
-                    if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
-                        cout << "Invalid parking lot index.\n";
-                    }
-                } while (lotIndex < 1 || lotIndex > parkingLots.getSize());
+                if(parkingLots.getSize() <= 0){
+                    cout << "No parking lots available. Create at least one parking lot and one car first.\n";
+                }
 
-                cout << "Enter the car's license plate to remove: ";
-                cin >> plate;
-                parkingLots.get(lotIndex - 1) -> removeCar(plate);
+                else if(parkingLots.get(0)->displayCars() == false){
+                    cout << "No cars in the parking lot.\n";
+                }
+
+                else{
+                    do{
+                        cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
+                        cin >> lotIndex;
+
+                        if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
+                            cout << "Invalid parking lot index.\n";
+                        }
+                    } while (lotIndex < 1 || lotIndex > parkingLots.getSize());
+                    cout << "Enter the car's license plate to remove: ";
+                    cin >> plate;
+                    parkingLots.get(lotIndex - 1) -> removeCar(plate);
+                }
             }
-        } 
+        }
         
         else if(userMenuOption == 5){
             cout << "Exiting Program...\n";
@@ -115,6 +120,5 @@ int main(){
         }
 
     } while(userMenuOption != 5);
-
     return 0;
 }
