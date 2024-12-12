@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "smartpointer.h"
 using namespace std;
 
 class Car {
