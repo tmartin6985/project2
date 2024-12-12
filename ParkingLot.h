@@ -12,13 +12,10 @@ private:
     vector<SmartPointer<Car>> cars;  // Dynamically allocated cars
 
 public:
-    ParkingLot() {
-        cout << "Constructor called for Parking Lot" << endl; //for bug testing
-    }
-
+    ParkingLot();
     void addCar(const string& plate);
     void removeCar(const string& plate);
-    void displayCars() const;
+    bool displayCars() const;
 
     friend ostream& operator << (ostream& os, const ParkingLot& lot) {
         os << "Parking Lot [Cars: " << lot.cars.size() << "]";
