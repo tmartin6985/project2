@@ -1,8 +1,6 @@
 #ifndef SMARTPOINTER_H
 #define SMARTPOINTER_H
-
-#include <iostream>
-#include <ostream>
+using namespace std; 
 
 template <typename T>
 class SmartPointer {
@@ -10,19 +8,47 @@ private:
     T* ptr;
 
 public:
-    //constructor
-    explicit SmartPointer(T* ptr = nullptr) {
-        this->ptr = ptr;
-        std::cout << "SmartPointer constructor called with pointer: " << ptr << std::endl; //for bug testing
+    // Constructor
+    explicit SmartPointer(T* inputPtr = nullptr) {
+        ptr = inputPtr;
+        cout << "SmartPointer constructor called with pointer " << ptr << endl;
     }
 
-    //destructor
+    // Copy Constructor
+    SmartPointer(const SmartPointer<T>& other) {
+        if (other.ptr != nullptr) {
+            ptr = new T(*other.ptr); // Create a deep copy
+        } else {
+            ptr = nullptr;
+        }
+        cout << "SmartPointer copy constructor called.\n";
+    }
+
+    // Copy Assignment Operator
+    SmartPointer& operator=(const SmartPointer<T>& other) {
+        if (this != &other) {
+            delete ptr;
+            if (other.ptr != nullptr) {
+                ptr = new T(*other.ptr);
+            } else {
+                ptr = nullptr;
+            }
+        }
+        cout << "SmartPointer copy assignment operator called.\n";
+        return *this;
+    }
+
+    // Destructor
     ~SmartPointer() {
         delete ptr;
-        std::cout << "SmartPointer destructor called. Object deleted.\n"; //for bug testing
+        cout << "SmartPointer destructor called. Object deleted.\n";
     }
 
     T& operator*() {
+    return *ptr;
+    }
+
+    const T& operator*() const { // Const version
         return *ptr;
     }
 
@@ -30,11 +56,16 @@ public:
         return ptr;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const SmartPointer<T>& smartPtr) {
-        if (smartPtr.ptr) {
-            os << *smartPtr.ptr;  // Dereference the pointer and print the object it points to
+    const T* operator->() const { // Const version
+        return ptr;
+    }
+
+
+    friend ostream& operator<<(ostream& os, const SmartPointer<T>& smartPtr) {
+        if (smartPtr.ptr != nullptr) {
+            os << *smartPtr.ptr; // Dereference the pointer and print the object it points to
         } else {
-            os << "null";  // Handle null pointer case
+            os << "null";
         }
         return os;
     }
