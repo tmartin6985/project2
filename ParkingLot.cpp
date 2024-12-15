@@ -2,17 +2,11 @@
 #include "smartpointer.h"
 using namespace std;
 
-ParkingLot::ParkingLot() {
-    cout << "ParkingLot constructor called.\n";
-}
+ParkingLot::ParkingLot() {}
 
 void ParkingLot::addCar(const string& plate, const string& color, const string& make, const string& model) {
-    cars.push_back(SmartPointer<Car>(new Car(plate, color, make, model)));  // Add the new car
-    cout << "Car added with details [Plate: " << plate
-         << ", Color: " << color
-         << ", Make: " << make
-         << ", Model: " << model
-         << "]. Total cars: " << cars.size() << endl;
+    cars.push_back(SmartPointer<Car>(new Car(plate, color, make, model)));  // adds the new car
+    cout << "Car added with details [Plate: " << plate << ", Color: " << color << ", Make: " << make << ", Model: " << model << "]. Total cars: " << cars.size() << endl;
 }
 
 void ParkingLot::removeCar(const string& plate) {
@@ -48,34 +42,45 @@ void ParkingLot::displayCars() const {
     }
 }
 
-void ParkingLot::sortCars(const string& carAttribute) { // bubble sort algorithm
-    for (size_t i = 0; i < cars.size(); ++i) {
-        for (size_t j = 0; j < cars.size() - i - 1; ++j) {
-            bool swap = false;
+void ParkingLot::sortCars(const string& carAttribute) {
+    if (carAttribute != "make" && carAttribute != "model" && carAttribute != "color") {
+        cout << "Invalid sort attribute. Choose 'make', 'model', or 'color'.\n";
+        return;
+    }
 
-            if (carAttribute == "make"){
-                swap = cars[j]->getMake() > cars[j + 1]->getMake();
-            } 
-            
-            else if (carAttribute == "model"){
-                swap = cars[j]->getModel() > cars[j + 1]->getModel();
-            }
-            
-            else if (carAttribute == "color"){
-                swap = cars[j]->getColor() > cars[j + 1]->getColor();
-            }
-            
-            else {
-                cout << "Invalid sort attribute. Choose 'make', 'model', or 'color'.\n";
-                return;
-            }
+    quickSort(0, cars.size() - 1, carAttribute);
+}
 
-            if (swap){ 
-                // swaps cars[j] and cars[j + 1]
-                SmartPointer<Car> temp = cars[j];
-                cars[j] = cars[j + 1];
-                cars[j + 1] = temp;
-            }
+void ParkingLot::quickSort(int low, int high, const string& carAttribute) {
+    if (low < high) {
+        int pivotIndex = partition(low, high, carAttribute); 
+        quickSort(low, pivotIndex - 1, carAttribute);
+        quickSort(pivotIndex + 1, high, carAttribute);
+    }
+}
+
+
+int ParkingLot::partition(int low, int high, const string& carAttribute) {
+    SmartPointer<Car> pivot = cars[high]; 
+    int i = low - 1;
+
+    for (int j = low; j < high; ++j) {
+        bool condition = false;
+
+        if (carAttribute == "make") {
+            condition = cars[j]->getMake() < pivot->getMake();
+        } else if (carAttribute == "model") {
+            condition = cars[j]->getModel() < pivot->getModel();
+        } else if (carAttribute == "color") {
+            condition = cars[j]->getColor() < pivot->getColor();
+        }
+
+        if (condition) {
+            ++i;
+            std::swap(cars[i], cars[j]); // requires std:: to work
         }
     }
+
+    std::swap(cars[i + 1], cars[high]); // requires std:: to work
+    return i + 1;
 }
