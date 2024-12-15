@@ -1,12 +1,11 @@
 - By Tristen Martin and Matt Nokes
 
-- **Intro**
-	The Tennessee Tech Parking Lot Manager is a program that allows the user to do the following:
-		- **Create virtual parking lots** 
-		- **View cars in a parking lot**
-		- **Add cars to a parking lot**
-		- **Remove a car from a parking lot**
-		- **Sort cars in a parking lot using a Quicksort algorithm**
+The Tennessee Tech Parking Lot Manager is a program that allows the user to do the following:
+	- **Create virtual parking lots** 
+	- **View cars in a parking lot**
+	- **Add cars to a parking lot**
+	- **Remove a car from a parking lot**
+	- **Sort cars in a parking lot using a Quicksort algorithm**
 
 - **Classes**
 	- **Car class:**
