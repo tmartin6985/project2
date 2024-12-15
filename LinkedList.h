@@ -44,7 +44,6 @@ public:
             temp->next = newNode;
         }
         size++;
-        cout << "Item added to LinkedList.\n"; //for debugging
     }
 
     void display() const {
