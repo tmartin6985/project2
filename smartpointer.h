@@ -11,17 +11,17 @@ public:
     // Constructor
     explicit SmartPointer(T* inputPtr = nullptr) {
         ptr = inputPtr;
-        cout << "SmartPointer constructor called with pointer " << ptr << endl;
     }
 
     // Copy Constructor
     SmartPointer(const SmartPointer<T>& other) {
         if (other.ptr != nullptr) {
-            ptr = new T(*other.ptr); // Create a deep copy
-        } else {
+            ptr = new T(*other.ptr); 
+        } 
+        
+        else {
             ptr = nullptr;
         }
-        cout << "SmartPointer copy constructor called.\n";
     }
 
     // Copy Assignment Operator
@@ -30,25 +30,25 @@ public:
             delete ptr;
             if (other.ptr != nullptr) {
                 ptr = new T(*other.ptr);
-            } else {
+            } 
+            
+            else {
                 ptr = nullptr;
             }
         }
-        cout << "SmartPointer copy assignment operator called.\n";
         return *this;
     }
 
     // Destructor
     ~SmartPointer() {
         delete ptr;
-        cout << "SmartPointer destructor called. Object deleted.\n";
     }
 
     T& operator*() {
     return *ptr;
     }
 
-    const T& operator*() const { // Const version
+    const T& operator*() const { 
         return *ptr;
     }
 
@@ -56,15 +56,17 @@ public:
         return ptr;
     }
 
-    const T* operator->() const { // Const version
+    const T* operator->() const { 
         return ptr;
     }
 
 
     friend ostream& operator<<(ostream& os, const SmartPointer<T>& smartPtr) {
         if (smartPtr.ptr != nullptr) {
-            os << *smartPtr.ptr; // Dereference the pointer and print the object it points to
-        } else {
+            os << *smartPtr.ptr; 
+        } 
+        
+        else {
             os << "null";
         }
         return os;
