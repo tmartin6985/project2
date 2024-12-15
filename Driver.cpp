@@ -13,7 +13,7 @@ using namespace std;
 
 int main(){
     int userMenuOption = 0; 
-    int numParkingLots = 0; // might be used in a future print statement
+    int numParkingLots = 0;
     int lotIndex;
     string plate, color, make, model, carAttribute;
     LinkedList<ParkingLot> parkingLots;
@@ -33,7 +33,6 @@ int main(){
         cin >> userMenuOption;
 
         if(userMenuOption == 1){ // create parking lot
-            cout << "Attempting to create a new parking lot..." << endl; //for bug testing
             SmartPointer<ParkingLot> newLot(new ParkingLot());
             parkingLots.add(newLot);
             cout << "Parking lot created.\n";
@@ -77,9 +76,7 @@ int main(){
                 getline(cin, model);
                 cout << "Enter the car's color: ";
                 getline(cin, color);
-
                 parkingLots.get(lotIndex - 1)->addCar(plate, color, make, model);
-                cout << "Car added.\n";
     }
         } 
         
@@ -89,7 +86,7 @@ int main(){
             }
 
             else{
-                cout << "Available parking lots: " << parkingLots.getSize() << endl; // Debug
+                cout << "Available parking lots: " << parkingLots.getSize() << endl; 
                 for (int i = 0; i < parkingLots.getSize(); ++i) {
                     cout << "\nParking Lot " << i + 1 << ":\n";
                     parkingLots.get(i)->displayCars();
@@ -103,6 +100,7 @@ int main(){
                     do{
                         cout << "Enter parking lot index (1 to " << parkingLots.getSize() << "): ";
                         cin >> lotIndex;
+                        cin.ignore();
                         if (lotIndex < 1 || lotIndex > parkingLots.getSize()){
                             cout << "Invalid parking lot index.\n";
                         }
@@ -114,7 +112,7 @@ int main(){
             }
         }
         
-        else if(userMenuOption == 5){ // bubble sort cars in parking lot
+        else if(userMenuOption == 5){ // quicksort cars in parking lot
             if(parkingLots.getSize() <= 0){
                 cout << "No parking lots available. Create at least one parking lot and one car first.\n";
             } 
@@ -133,7 +131,7 @@ int main(){
                 cout << "Enter the car attribute to sort by ('make', 'model', or 'color'): ";
                 cin >> carAttribute;
                 parkingLots.get(lotIndex - 1)->sortCars(carAttribute);
-                cout << "Cars sorted.\n";
+                cout << "Cars sorted by " << carAttribute << " using the quicksort algorithm.\n";
             }
         } 
 
