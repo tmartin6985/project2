@@ -9,7 +9,7 @@ using namespace std;
 
 class ParkingLot {
 private:
-    vector<SmartPointer<Car>> cars;  // Dynamically allocated cars
+    vector<SmartPointer<Car>> cars;
 
 public:
     ParkingLot();
@@ -17,6 +17,9 @@ public:
     void removeCar(const string& plate);
     void displayCars() const;
     void sortCars(const string& carAttribute);
+    void quickSort(int low, int high, const string& carAttribute);
+    int partition(int low, int high, const string& carAttribute);
+    void swap(int i, int j);
     friend ostream& operator << (ostream& os, const ParkingLot& lot) {
         os << "Parking Lot [Cars: " << lot.cars.size() << "]";
         return os;
