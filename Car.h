@@ -7,10 +7,7 @@ using namespace std;
 
 class Car {
 private:
-    string licensePlate;
-    string color;
-    string make;
-    string model;
+    string licensePlate, color, make, model;
 
 public:
     // constructor
@@ -21,16 +18,14 @@ public:
         model = carModel;
     }
 
-    // getters
     string getLicensePlate() const { return licensePlate; }
     string getColor() const { return color; }
     string getMake() const { return make; }
     string getModel() const { return model; }
 
-    // prints car data
+    // prints car attributes
     friend ostream& operator<<(ostream& os, const Car& car) {
-        os << "License Plate: " << car.licensePlate << "\nMake: " << car.make << "\nModel: " << car.model << "\nColor: " << car.color << endl;
-        return os;
+        os << "\n- License Plate:\t" << car.licensePlate << "\n- Make:\t\t\t" << car.make << "\n- Model:\t\t" << car.model << "\n- Color:\t\t" << car.color << endl;        return os;
     }
 };
 
